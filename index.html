@@ -19,7 +19,7 @@
         </style>
     </head>
     <body>
-        <!--Första raden för minsta och högsta temperaturen-->
+        <!--Container för första raden med minsta och högsta temperaturen-->
         <div class="container-fluid">
             <div class="row">
                 <div class="col-4">
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <!--Bilden för det nuvarande vädret och temperaturen-->
+        <!--En div för bilden med det nuvarande vädret och temperaturen-->
         <div class="imageContainer d-flex justify-content-center align-items-center">
             <div>
                 <img class="icon" src="">
@@ -58,6 +58,7 @@
         <script>
                 //Skickar en förfrågan till weather api och ändrar innehållet av elementen till det jag vill.
                 $.get("https://api.openweathermap.org/data/2.5/weather?lat=59.23705&lon=17.98192&units=metric&appid=2e5a2d4fdb43c807501fdf50356b67e7", function(data){
+                    //Lägger information i klasserna som exempelvis temperaturen, vindhastighet och bild för vädret. 
                     $("h3.minTemp").text("Min: " + data.main.temp_min + "°C");
                     $("h1.city").text(data.name);
                     $("h3.maxtemp").text("Max: " + data.main.temp_max + "°C");
