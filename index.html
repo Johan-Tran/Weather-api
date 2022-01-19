@@ -1,72 +1,85 @@
     <DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <title>Weather</title>
-        <style>
-            .bottom{
-                bottom:0;
-                width:100%;
-            }
-            .imageContainer{
-                height:70%;
-                width: 100vw;
-            }
-        </style>
-    </head>
-    <body>
-        <!--Container för första raden med minsta och högsta temperaturen-->
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-4">
-                    <h3 class="minTemp font-weight-bold"></h3>
+        <html lang="en">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+                integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+                crossorigin="anonymous">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <title>Weather</title>
+            <style>
+                .imageContainer {
+                    height: 70%;
+                    width: 100%;
+
+                }
+
+                .widgetContainer {
+                    height: 50%;
+                    width: 50%;
+                    background-color: rgb(82, 169, 204);
+                    border-radius: 20px;
+                }
+            </style>
+        </head>
+
+        <body>
+
+            <div class="widgetContainer">
+                <!--Container för första raden med minsta och högsta temperaturen-->
+                <div class="container-fluid text-white">
+                    <div class="row">
+                        <div class="col-4">
+                            <h4 class="minTemp font-weight-bold"></h4>
+                        </div>
+                        <div class="col-4 text-center">
+                            <h1 class="city font-weight-bold"></h1>
+                        </div>
+                        <div class="col-4 text-right">
+                            <h4 class="maxTemp font-weight-bold"></h4>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-4 text-center">
-                    <h1 class="city font-weight-bold display-3"></h1>
+
+                <!--En div för bilden med det nuvarande vädret och temperaturen-->
+                <div class="imageContainer d-flex justify-content-center align-items-center text-white">
+                    <div>
+                        <img class="weatherIcon" src="">
+                        <h1 class="currentTemp font-weight-bold text-center"></h1>
+                    </div>
                 </div>
-                <div class="col-4 text-right">
-                    <h3 class="maxTemp font-weight-bold"></h3>
+
+                <!--Container för fuktighet och vindhastighet-->
+                <div class="container-fluid w-auto h-auto text-white">
+                    <div class="row">
+                        <div class="col-6">
+                            <h4 class="hum font-weight-bold"></h4>
+                        </div>
+                        <div class="col-6">
+                            <h4 class="windSpd font-weight-bold text-right"></h4>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <!--Container för fuktighet och vindhastighet-->
-        <div class="container-fluid position-fixed bottom">
-            <div class="row">
-                <div class="col-6">
-                    <h3 class="hum font-weight-bold"></h3>
-                </div>
-                <div class="col-6 text-right">
-                    <h3 class="windSpd font-weight-bold"></h3>
-                </div>
-            </div>
-        </div>
 
-        <!--En div för bilden med det nuvarande vädret och temperaturen-->
-        <div class="imageContainer d-flex justify-content-center align-items-center">
-            <div>
-                <img class="icon" src="">
-                <h1 class="currentTemp font-weight-bold display-3"></h1>
-            </div>
-        </div>
-
-
-        <script>
+            <script>
                 //Skickar en förfrågan till weather api och ändrar innehållet av elementen till det jag vill.
-                $.get("https://api.openweathermap.org/data/2.5/weather?lat=59.23705&lon=17.98192&units=metric&appid=2e5a2d4fdb43c807501fdf50356b67e7", function(data){
-                    //Lägger information i klasserna som exempelvis temperaturen, vindhastighet och bild för vädret. 
-                    $("h3.minTemp").text("Min: " + data.main.temp_min + "°C");
-                    $("h1.city").text(data.name);
-                    $("h3.maxtemp").text("Max: " + data.main.temp_max + "°C");
-                    $("h3.hum").text("Humidity: " + data.main.humidity);
-                    $("h3.windSpd").text("Wind speed: " + data.wind.speed + " km/h");
-                    $(".icon").attr("src", "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@4x.png");
-                    $("h1.currentTemp").text(data.main.temp+ "°C");
-                });
-        </script>
-    </body>
-    </html>
+                $.get("https://api.openweathermap.org/data/2.5/weather?lat=59.23705&lon=17.98192&units=metric&appid=2e5a2d4fdb43c807501fdf50356b67e7",
+                    function (data) {
+                        //Lägger information i klasserna som exempelvis temperaturen, vindhastighet och bild för vädret. 
+                        $("h4.minTemp").text("Min: " + Math.floor(data.main.temp_min) + "°C");
+                        $("h1.city").text(data.name);
+                        $("h4.maxtemp").text("Max: " + Math.floor(data.main.temp_max) + "°C");
+                        $("h4.hum").text("Humidity: " + Math.floor(data.main.humidity) + "%");
+                        $("h4.windSpd").text("Wind speed: " + Math.floor(data.wind.speed) + " km/h");
+                        $(".weatherIcon").attr("src", "https://openweathermap.org/img/wn/" + data.weather[0].icon +
+                            "@2x.png");
+                        $("h1.currentTemp").text(Math.floor(data.main.temp) + "°C");
+                    });
+            </script>
+        </body>
+
+        </html>
